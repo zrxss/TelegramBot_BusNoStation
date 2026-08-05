@@ -38,9 +38,12 @@ async def start_monitoring(message: Message):
 async def monitoring(message: Message, user_id):
     timer = time.monotonic()
     while time.monotonic() - timer < 600:
-        if await should_go_out():
-            await message.answer('Выходи из дома!')
-        await asyncio.sleep(5)
+        try:
+            if await should_go_out():
+                await message.answer('Выходи из дома!')
+            await asyncio.sleep(5)
+        finally:
+            active_tasks.pop(user_id)
     else:
         await message.answer('Мониторинг прибытия окончен')
         active_tasks.pop(user_id)
