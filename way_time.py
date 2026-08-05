@@ -1,7 +1,8 @@
 from tosamara_api import list_of_arriving_buses_post
 
+from config import EXCLUDED_NEXT_STOP_IDS
+
 async def should_go_out():
-    print('проверка')
     arrival = await list_of_arriving_buses_post()
 
     if not arrival:
@@ -11,10 +12,7 @@ async def should_go_out():
     target_max_wait = 300
 
     for bus in arrival:
-        print(bus['timeInSeconds'])
-        print(float(bus['timeInSeconds']) -210)
-        print(bus['nextStopId'])
-        walk_time = float(bus['timeInSeconds']) - 210
-        if target_min_wait <= walk_time <= target_max_wait and bus['nextStopId'] != '1399':
+        wait_time = float(bus['timeInSeconds']) - 210
+        if target_min_wait <= wait_time <= target_max_wait and bus['nextStopId'] not in EXCLUDED_NEXT_STOP_IDS:
             return True
     return False

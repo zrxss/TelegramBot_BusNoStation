@@ -1,10 +1,10 @@
 import hashlib
 
-from config import SECRET
+from config import SECRET, KR_ID, KS_ID
 
 
 
-message = '{"KS_ID":27,"KR_ID":49,"method":"getRouteArrivalToStop"}'
+message = f'{{"KS_ID":{KS_ID},"KR_ID":{KR_ID},"method":"getRouteArrivalToStop"}}'
 
 text_bytes = (message + SECRET).encode("utf-8")
 hash_object = hashlib.sha1(text_bytes)
