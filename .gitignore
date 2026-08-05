@@ -1,0 +1,13 @@
+#VirtualEnvironment
+.venv
+.env
+
+#Python
+__pycache__/
+
+#JetBrains
+.idea/
+
+#files and dir
+other good things/
+config.py
